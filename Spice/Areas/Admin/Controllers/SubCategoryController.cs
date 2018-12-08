@@ -8,7 +8,7 @@ using Spice.Data;
 
 namespace Spice.Areas.Admin.Controllers
 {
-    [Area("Admin1")]
+    [Area("Admin")]
     public class SubCategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
