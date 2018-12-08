@@ -15,6 +15,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\SubCategory\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
