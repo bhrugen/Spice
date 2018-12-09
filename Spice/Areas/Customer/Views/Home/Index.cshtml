@@ -10,6 +10,8 @@
             {
                 if (i == 0)
                 {
+
+
                     <div class="carousel-item active">
                         @{
                             var base64 = Convert.ToBase64String(Model.Coupon.ToList()[i].Picture);
@@ -33,5 +35,18 @@
             }
         </div>
     </div>
+
 }
+
+<br /><br />
+
+<div class="backgroundWhite container">
+
+    @foreach(var category in Model.Category)
+    {
+        <div class="row" id="menu-wrapper">
+            <partial name="_ThumbnailAreaPartial" model="@Model.MenuItem.Where(u=>u.Category.Name.Equals(category.Name))" />
+        </div>
+    }
+</div>
 
