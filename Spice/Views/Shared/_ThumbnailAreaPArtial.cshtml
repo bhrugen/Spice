@@ -18,11 +18,38 @@
                         <img src="@item.Image" width="99%" style="border-radius:5px;border:1px solid #bbb9b9" />
                     </div>
                     <div class="col-md-9 col-sm-12">
-                        
+                        <div class="row pr-3">
+                            <div class="col-8">
+                                <label class="text-primary" style="font-size:21px;color:maroon">@item.Name</label>
+                                @if (item.Spicyness == "1")
+                                {
+                                    <img srcset="/images/mild.png" title="Mild" />
+                                }
+                                @if (item.Spicyness == "2")
+                                {
+                                    <img srcset="/images/spicy.png" title="Spicy" />
+                                }
+                                @if (item.Spicyness == "3")
+                                {
+                                    <img srcset="/images/veryspicy.png" title="Very Spicy" />
+                                }
+                            </div>
+                            <div class="col-4 text-right" style="color:maroon">
+                                <h4>$@item.Price</h4>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-12 text-justify d-none d-md-block">
+                            <p>@Html.Raw(item.Description)</p>
+                        </div>
+                        <div class="col-md-3 col-sm-12 offset-md-9 text-center">
+                            <a asp-action="Details" class="btn btn-success form-control" asp-route-id="@item.Id">Details</a>
+                        </div>
                     </div>
                     </div>
                 </div> 
         }
-
+        <div class="p-4"></div>
     </div>
 }
