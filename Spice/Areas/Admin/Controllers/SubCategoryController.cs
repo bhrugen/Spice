@@ -129,7 +129,9 @@ namespace Spice.Areas.Admin.Controllers
                 }
                 else
                 {
-                    _db.SubCategory.Add(model.SubCategory);
+                    var subCatFromDb = await _db.SubCategory.FindAsync(id);
+                    subCatFromDb.Name = model.SubCategory.Name;
+
                     await _db.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
