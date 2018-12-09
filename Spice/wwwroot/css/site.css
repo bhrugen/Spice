@@ -82,3 +82,27 @@ body {
     border-radius: 10px;
     border: 1px solid #ddd;
 }
+
+
+
+.menu-filter-list li{
+    display: inline-block;
+    cursor:pointer;
+    padding:10px 20px 10px;
+    text-transform: uppercase;
+    background: #f5f5f5;
+    border-radius:5px;
+    font-weight:700;
+    font-size:13px;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-transition:all 0.3s;
+    transition:all 0.3s;
+    font-family:"Poppins",sans-serif;
+
+}
+
+    .menu-filter-list li.is-checke, .menu-filter-list li:hover{
+        background-color:#545b62;
+        color:#fff;
+    }
