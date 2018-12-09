@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Coupon>
+
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <br /><br />
+    <div class="border backgroundWhite">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-info"> Coupon List</h2>
+            </div>
+            <div class="col-6 text-right">
+                <partial name="_CreateButtonPartial" />
+            </div>
+        </div>
+        <br />
+        <div>
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            @Html.DisplayNameFor(m => m.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.Discount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.MinimumAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.IsActive)
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Discount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.MinimumAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.IsActive)
+                        </td>
+                        <td>
+                            <partial name="_TableButtonPartial" model="item.Id" />
+                        </td>
+                    </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No coupons exists...</p>
+            }
+        </div>
+    </div>
+
