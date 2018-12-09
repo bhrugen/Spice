@@ -12,7 +12,7 @@ namespace Spice.Utility
 
         public const string ManagerUser = "Manager";
         public const string KitchenUser = "Kitchen";
-        public const string FrontDeskUser = "FromtDesk";
+        public const string FrontDeskUser = "FrontDesk";
         public const string CustomerEndUser = "Customer";
 
 
