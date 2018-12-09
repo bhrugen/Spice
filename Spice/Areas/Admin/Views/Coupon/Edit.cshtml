@@ -1,0 +1,83 @@
+﻿@model Spice.Models.Coupon
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h2 class="text-info">Edit Coupon</h2>
+<br />
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class=" row backgroundWhiteBorder">
+
+        <br />
+        <div class="col-12 border">
+            @{
+                var base64 = Convert.ToBase64String(Model.Picture);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            }
+            <img src="@imgsrc" height="100%" width="100%" />
+        </div>
+        <div class="col-12 pt-4">
+            <input hidden asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Name" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Picture" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input type="file" id="projectImage" name="files" multiple class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="CouponType" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <select asp-for="CouponType" asp-items="Html.GetEnumSelectList<Coupon.ECouponType>()" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Discount" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Discount" class="form-control" />
+                </div>
+                <span asp-validation-for="Discount" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="MinimumAmount" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="MinimumAmount" class="form-control" />
+                </div>
+                <span asp-validation-for="MinimumAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="IsActive" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input type="checkbox" asp-for="IsActive" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-5 offset-2">
+                    <partial name="_EditAndBackToListButton" model="Model.Id" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
