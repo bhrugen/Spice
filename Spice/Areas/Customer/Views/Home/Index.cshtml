@@ -43,11 +43,11 @@
       <div class="backgroundWhite container">
          
           <ul id="menu-filters" class="menu-filter-list list-inline text-center">
-              <li class="filter active btn btn-secondary ml-1 mr-1">Show All</li>
+              <li class="active btn btn-secondary ml-1 mr-1" data-filter="menu-restaurant">Show All</li>
 
               @foreach (var item in Model.Category)
               {
-                  <li class="filter ml-1 mr-1">@item.Name</li>
+                  <li class="ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">@item.Name</li>
               }
           </ul>
 

@@ -5,7 +5,7 @@
 
 @if (Model.Count() > 0)
 {
-    <div class="col-12">
+    <div class="col-12 post @Model.FirstOrDefault().Category.Name.Replace(" ",string.Empty) menu-restaurant">
         <div class="row">
             <h3 class="text-success"> @Model.FirstOrDefault().Category.Name </h3>
         </div>
