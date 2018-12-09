@@ -1,0 +1,37 @@
+﻿@model Spice.Models.SubCategory
+@{
+    ViewData["Title"] = "Delete";
+}
+<br />
+<h2 class="text-info">Sub Category Delete</h2>
+<br />
+<form method="post">
+    <div class="border backgroundWhite">
+        <input type="hidden" asp-for="Id" />
+        <fieldset disabled>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Name" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Category.Name" class="custom-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Category.Name" class="form-control" />
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_DeleteAndBackToListButton" model="Model.Id" />
+            </div>
+        </div>
+    </div>
+</form>
+
