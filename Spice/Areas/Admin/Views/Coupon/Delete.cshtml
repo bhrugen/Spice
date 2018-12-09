@@ -1,0 +1,73 @@
+﻿@model Spice.Models.Coupon
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2 class="text-info">Delete Coupon</h2>
+<br />
+<form asp-action="Delete" method="post" enctype="multipart/form-data">
+    <div class="row  backgroundWhiteBorder">
+        <br />
+        <div class=" col-12 border">
+            @{
+                var base64 = Convert.ToBase64String(Model.Picture);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            }
+            <img src="@imgsrc" height="100%" width="100%" />
+        </div>
+        <div class="col-12 pt-4">
+            <fieldset disabled>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Name" class="custom-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="CouponType" class="custom-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <select asp-for="CouponType" asp-items="Html.GetEnumSelectList<Coupon.ECouponType>()" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Discount" class="custom-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Discount" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="MinimumAmount" class="custom-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="MinimumAmount" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="IsActive" class="custom-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input type="checkbox" asp-for="IsActive" class="form-control" />
+                    </div>
+                </div>
+
+            </fieldset>
+            <br />
+            <div class="form-group row">
+                <div class="col-5 offset-2">
+                    <partial name="_DeleteAndBackToListButton" model="@Model.Id" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
