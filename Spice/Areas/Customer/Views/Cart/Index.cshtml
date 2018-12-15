@@ -58,6 +58,39 @@
                             </div>
                             <hr />
                         }
+
+                        <div class="row">
+                            <div class="col-12 col-md-5">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <input asp-for="@Model.OrderHeader.CouponCode" id="txtCouponCode" class="form-control" placeholder="coupon code..." />
+                                    </div>
+                                    <div class="col-5" style="margin-top:2px;">
+                                        <button type="submit" class="btn btn-sm form-control btn-outline-success" id="btnCoupon" asp-action="AddCoupon">
+                                            Apply
+                                        </button>
+                                        <button type="submit" class="btn btn-sm form-control btn-outline-danger" style="display:none" id="btnRemoveCoupon" asp-action="AddCoupon">
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span class="text-info"> Total (USD)</span>
+                                        <strong class="text-info">$ <span id="txtOrderTotal">@Model.OrderHeader.OrderTotal</span></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12 col-lg-4 offset-lg-8 col-md-6 offset-md-6">
+                            <a asp-action="Summary" asp-area="Customer" asp-controller="Cart" class="btn btn-success form-control">Summary</a>
+                        </div>
                     </div>
                 </div>
             </div>
