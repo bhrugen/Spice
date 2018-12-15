@@ -124,9 +124,13 @@
 </form>
 
 @section Scripts{
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+
     <script>
         $(function () {
             $("#datepicker").datepicker({ minDate: 0, maxDate: "+1W" });
+            $("#timepicker").timepicker({'minTime': '11:00 AM', 'maxTime': '9:00 PM', step: '30'})
         });
     </script>
 }
