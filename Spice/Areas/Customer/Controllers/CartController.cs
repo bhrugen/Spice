@@ -87,5 +87,49 @@ namespace Spice.Areas.Customer.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
+        public async Task<IActionResult> Plus(int cartId)
+        {
+            var cart = await _db.ShoppingCart.FirstOrDefaultAsync(c => c.Id == cartId);
+            cart.Count += 1;
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Minus(int cartId)
+        {
+            var cart = await _db.ShoppingCart.FirstOrDefaultAsync(c => c.Id == cartId);
+            if(cart.Count==1)
+            {
+                _db.ShoppingCart.Remove(cart);
+                await _db.SaveChangesAsync();
+
+                var cnt = _db.ShoppingCart.Where(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+                HttpContext.Session.SetInt32(SD.ssShoppingCartCount, cnt);
+            }
+            else
+            {
+                cart.Count -= 1;
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Remove(int cartId)
+        {
+            var cart = await _db.ShoppingCart.FirstOrDefaultAsync(c => c.Id == cartId);
+
+            _db.ShoppingCart.Remove(cart);
+            await _db.SaveChangesAsync();
+
+            var cnt = _db.ShoppingCart.Where(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+            HttpContext.Session.SetInt32(SD.ssShoppingCartCount, cnt);
+
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
