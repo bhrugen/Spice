@@ -58,5 +58,45 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div class="col-lg-4 col-12">
+            <h4 class="d-flex justify-content-between align-content-center mb-3">
+                <span class="text-muted">Order ID: </span>
+                <span class="badge badge-secondary badge-pill">@Model.OrderHeader.Id</span>
+            </h4>
+            <ul class="list-group mb-3">
+                @foreach (var details in Model.OrderDetails)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div>
+                            <h6 class="my-0">@details.Name</h6>
+                            <small class="text-muted">Quantity : @details.Count</small>
+                        </div>
+                        <span class="text-muted">@(details.Price * details.Count)</span>
+                    </li>
+                }
+                @if(Model.OrderHeader.CouponCode!=null)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo Code</h6>
+                            <small >@Model.OrderHeader.CouponCode</small>
+                        </div>
+                        <span class="text-success">@(Model.OrderHeader.OrderTotalOriginal-Model.OrderHeader.OrderTotal)</span>
+                    </li>
+                }
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <span class="text-info"> Total (USD)</span>
+                    <strong class="text-info">$@Model.OrderHeader.OrderTotal</strong>
+                </li>
+
+            </ul>
+
+            <button type="submit" disabled class="btn btn-info form-control">@Model.OrderHeader.Status</button>
+
+        </div>
+
     </div>
 </form>
