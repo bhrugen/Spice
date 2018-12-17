@@ -1,0 +1,62 @@
+﻿@model Spice.Models.ViewModels.OrderDetailsViewModel
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<form method="post">
+    <div class="container row border ml-1 backgroundWhiteBorder10Padding" style="width:100%">
+        <div class="col-lg-8 col-12" style="border-right:1px solid #bbb9b9">
+            <br />
+            <input type="hidden" asp-for="OrderHeader.Id" />
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label>Name</label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.PickupName" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.ApplicationUser.Email"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.ApplicationUser.Email" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.ApplicationUser.PhoneNumber"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.ApplicationUser.PhoneNumber" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.OrderTotal"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.OrderTotal" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.OrderDate"></label>
+                </div>
+                <div class="col-9">
+                    <input value="@Model.OrderHeader.PickUpTime.ToShortDateString() @Model.OrderHeader.PickUpTime.ToShortTimeString()" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.Comments"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.Comments" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
