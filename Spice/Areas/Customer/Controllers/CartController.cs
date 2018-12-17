@@ -10,6 +10,7 @@ using Spice.Data;
 using Spice.Models;
 using Spice.Models.ViewModels;
 using Spice.Utility;
+using Stripe;
 
 namespace Spice.Areas.Customer.Controllers
 {
@@ -117,7 +118,7 @@ namespace Spice.Areas.Customer.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Summary")]
-        public async Task<IActionResult> SummaryPost()
+        public async Task<IActionResult> SummaryPost(string stripeEmail, string stripeToken)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -170,6 +171,50 @@ namespace Spice.Areas.Customer.Controllers
             _db.ShoppingCart.RemoveRange(detailCart.listCart);
             HttpContext.Session.SetInt32(SD.ssShoppingCartCount, 0);
             await _db.SaveChangesAsync();
+
+            //Stripe Logic
+
+            if (stripeToken != null)
+            {
+                var customers = new CustomerService();
+                var charges = new ChargeService();
+
+                var customer = customers.Create(new CustomerCreateOptions
+                {
+                    Email = stripeEmail,
+                    SourceToken = stripeToken
+                });
+
+                var charge = charges.Create(new ChargeCreateOptions
+                {
+                    Amount = Convert.ToInt32(detailCart.OrderHeader.OrderTotal*100),
+                    Description = "Order ID : " + detailCart.OrderHeader.Id,
+                    Currency = "usd",
+                    CustomerId = customer.Id
+                });
+
+                detailCart.OrderHeader.TransactionId = charge.BalanceTransactionId;
+                if(charge.Status.ToLower()=="succeeded")
+                {
+                    //email for successful order
+
+                    detailCart.OrderHeader.PaymentStatus = SD.PaymentStatusApproved;
+                    detailCart.OrderHeader.Status = SD.StatusSubmitted;
+                }
+                else
+                {
+                    detailCart.OrderHeader.PaymentStatus = SD.PaymentStatusRejected;
+                }
+
+            }
+            else
+            {
+                detailCart.OrderHeader.PaymentStatus = SD.PaymentStatusRejected;
+            }
+
+            await _db.SaveChangesAsync();
+
+
 
             return RedirectToAction("Index", "Home");
             //return RedirectToAction("Confirm", "Order", new { id = detailCart.OrderHeader.Id });
