@@ -94,3 +94,36 @@
         </div>
     </div>
 </div>
+
+
+@section scripts
+{ 
+<script>
+    var PostBackURL = '/Customer/Order/GetOrderDetails';
+
+    $(function () {
+        $(".anchorDetail").click(function () {
+
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+
+            $.ajax({
+                type: "GET",
+                url: PostBackURL,
+                contentType: "application/json; charset=utf-8",
+                data: { "Id": id },
+                cache: false,
+                datatyype: "json",
+                success: function (data) {
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed");
+                }
+            })
+
+        })
+    })
+    </script>
+}
