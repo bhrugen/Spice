@@ -4,7 +4,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<form method="post">
+<form asp-action="OrderPickup" asp-controller="Order" asp-route-orderId="@Model.OrderHeader.Id" method="post">
     <div class="container row border ml-1 backgroundWhiteBorder10Padding" style="width:100%">
         <div class="col-lg-8 col-12" style="border-right:1px solid #bbb9b9">
             <br />
