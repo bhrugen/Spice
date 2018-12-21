@@ -129,5 +129,41 @@ namespace Spice.Areas.Customer.Controllers
 
             return PartialView("_IndividualOrderDetails", orderDetailsViewModel);
         }
+
+
+
+
+        [Authorize(Roles =SD.KitchenUser + ","+ SD.ManagerUser)]
+        public async Task<IActionResult> OrderPrepare(int OrderId)
+        {
+            OrderHeader orderHeader = await _db.OrderHeader.FindAsync(OrderId);
+            orderHeader.Status = SD.StatusInProcess;
+            await _db.SaveChangesAsync();
+            return RedirectToAction("ManageOrder", "Order");
+        }
+
+
+        [Authorize(Roles = SD.KitchenUser + "," + SD.ManagerUser)]
+        public async Task<IActionResult> OrderReady(int OrderId)
+        {
+            OrderHeader orderHeader = await _db.OrderHeader.FindAsync(OrderId);
+            orderHeader.Status = SD.StatusReady;
+            await _db.SaveChangesAsync();
+
+            //Email logic to notify user that order is ready for pickup
+
+
+            return RedirectToAction("ManageOrder", "Order");
+        }
+
+
+        [Authorize(Roles = SD.KitchenUser + "," + SD.ManagerUser)]
+        public async Task<IActionResult> OrderCancel(int OrderId)
+        {
+            OrderHeader orderHeader = await _db.OrderHeader.FindAsync(OrderId);
+            orderHeader.Status = SD.StatusCancelled;
+            await _db.SaveChangesAsync();
+            return RedirectToAction("ManageOrder", "Order");
+        }
     }
 }
