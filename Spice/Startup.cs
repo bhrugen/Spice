@@ -57,6 +57,12 @@ namespace Spice
                 facebookOptions.AppSecret = "a72e3bebaa552f73d3d52af4de3883d7";
             });
 
+            services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = "943287545908-23cg1r49vf777q6lj9ndvl72cfro6vac.apps.googleusercontent.com";
+                googleOptions.ClientSecret = "9ppq7O-KTSbX4GNl8hWJscnG";
+            });
+
             services.AddSession(options =>
             {
                 options.Cookie.IsEssential = true;
