@@ -1,4 +1,5 @@
 ﻿@model Spice.Models.ViewModels.OrderDetailsViewModel
+@using Spice.Utility
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -77,14 +78,14 @@
                         <span class="text-muted">@(details.Price * details.Count)</span>
                     </li>
                 }
-                @if(Model.OrderHeader.CouponCode!=null)
+                @if (Model.OrderHeader.CouponCode != null)
                 {
                     <li class="list-group-item d-flex justify-content-between">
                         <div class="text-success">
                             <h6 class="my-0">Promo Code</h6>
-                            <small >@Model.OrderHeader.CouponCode</small>
+                            <small>@Model.OrderHeader.CouponCode</small>
                         </div>
-                        <span class="text-success">@(Model.OrderHeader.OrderTotalOriginal-Model.OrderHeader.OrderTotal)</span>
+                        <span class="text-success">@(Model.OrderHeader.OrderTotalOriginal - Model.OrderHeader.OrderTotal)</span>
                     </li>
                 }
                 <li class="list-group-item d-flex justify-content-between bg-light">
@@ -93,9 +94,14 @@
                 </li>
 
             </ul>
-
-            <button type="submit" disabled class="btn btn-info form-control">@Model.OrderHeader.Status</button>
-
+            @if (Model.OrderHeader.Status.Equals(SD.StatusReady) && (User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.FrontDeskUser)))
+            {
+                <button type="submit"  class="btn btn-success form-control"><i class="far fa-thumbs-up"></i> Confirm Pickup</button>
+            }
+            else
+            { 
+                <button type="submit" disabled class="btn btn-info form-control">@Model.OrderHeader.Status</button>
+            }
         </div>
 
     </div>
