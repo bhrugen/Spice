@@ -64,7 +64,7 @@
                             </li>
                         }
 
-                        @if (User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.CustomerEndUser))
+                        @if (User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.CustomerEndUser) || User.IsInRole(SD.FrontDeskUser) || User.IsInRole(SD.KitchenUser) )
                         {
                             <li class="nav-item">
                                 <a asp-area="Customer" asp-controller="Order" asp-action="OrderHistory" class="nav-link">
@@ -73,7 +73,7 @@
                             </li>
                         }
 
-                        @if (User.IsInRole(SD.KitchenUser) || User.IsInRole(SD.KitchenUser) || User.IsInRole(SD.ManagerUser))
+                        @if (User.IsInRole(SD.FrontDeskUser) || User.IsInRole(SD.KitchenUser) || User.IsInRole(SD.ManagerUser))
                         {
                             <li class="nav-item dropdown text-white-50">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
