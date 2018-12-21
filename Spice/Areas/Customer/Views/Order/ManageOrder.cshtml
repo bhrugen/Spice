@@ -1,0 +1,51 @@
+﻿@model List<Spice.Models.ViewModels.OrderDetailsViewModel>
+@{
+    ViewData["Title"] = "ManageOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-info">Manage Order's</h2>
+<form method="post">
+    <br />
+    @if (Model.Count > 0)
+    {
+        <div class="container row bg-white p-2 border mb-3 rounded">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 pb-3 pt-3">
+                    <div class="backgroundWhiteBorder10Padding">
+                        <div class="row">
+                            <div class="col-4">
+                                Order Number : @item.OrderHeader.Id
+                                <ul class="text-info">
+                                    @foreach (var details in item.OrderDetails)
+                                    {
+                                        <li>@details.Name x @details.Count</li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-4 pb-2">
+                                <div class="input-group pb-2">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Time</span>
+                                    </div>
+                                    <input type="text" class="border rounded form-control" readonly value="@item.OrderHeader.PickUpTime" />
+                                </div>
+                                @{ 
+                                    var comments = item.OrderHeader.Comments;
+                                    if(comments==null || comments.Trim().Length ==0)
+                                    {
+                                        item.OrderHeader.Comments = "No Instructions";
+                                    }
+                                    
+                                }
+                                <textarea asp-for="@item.OrderHeader.Comments" readonly class="rounded border form-control" style="width:100%;height:75px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</form>
+
