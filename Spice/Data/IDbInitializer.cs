@@ -7,6 +7,6 @@ namespace Spice.Data
 {
     public interface IDbInitializer
     {
-        void Inittialize();
+        void Initialize();
     }
 }
