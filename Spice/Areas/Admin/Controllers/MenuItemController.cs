@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Spice.Data;
@@ -20,12 +19,12 @@ namespace Spice.Areas.Admin.Controllers
     public class MenuItemController : Controller
     {
         private readonly ApplicationDbContext _db;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         [BindProperty]
         public MenuItemViewModel MenuItemVM { get; set; }
   
-        public MenuItemController(ApplicationDbContext db, IHostingEnvironment hostingEnvironment)
+        public MenuItemController(ApplicationDbContext db, IWebHostEnvironment hostingEnvironment)
         {
             _db = db;
             _hostingEnvironment = hostingEnvironment;

@@ -17,6 +17,7 @@ using Spice.Utility;
 using Stripe;
 using Spice.Service;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Hosting;
 
 namespace Spice
 {
@@ -45,15 +46,15 @@ namespace Spice
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddDefaultTokenProviders()
-                .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<EmailOptions>(Configuration);
-            
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
@@ -76,7 +77,7 @@ namespace Spice
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IDbInitializer dbInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -89,21 +90,28 @@ namespace Spice
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+            app.UseRouting();
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             dbInitializer.Initialize();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
             app.UseAuthentication();
-
-            app.UseMvc(routes =>
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "areas",
-                    template: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "areas",
+            //        template: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
