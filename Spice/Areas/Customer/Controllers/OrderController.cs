@@ -19,7 +19,7 @@ namespace Spice.Areas.Customer.Controllers
     public class OrderController : Controller
     {
         private readonly IEmailSender _emailSender;
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
         private int PageSize = 2;
         public OrderController(ApplicationDbContext db, IEmailSender emailSender)
         {
