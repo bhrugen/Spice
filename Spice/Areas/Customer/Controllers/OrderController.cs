@@ -55,8 +55,6 @@ namespace Spice.Areas.Customer.Controllers
         }
 
         [Authorize]
-        [Authorize(Roles = SD.CustomerEndUser)]
-        [Authorize(Roles = SD.ManagerUser)]
         public async Task<IActionResult> OrderHistory(int productPage=1)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
