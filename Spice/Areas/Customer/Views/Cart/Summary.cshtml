@@ -214,30 +214,25 @@
             var dt = document.getElementById("datepicker").value;
             var name = document.getElementById("txtName").value;
             var phone = document.getElementById("txtPhone").value;
-            if (time.toString() == '') {
-                alert("Please select pickup time");
+
+            if (dt.toString().length == 0) {
+                alert("Please select pickup date")
+                return false;
+            }
+            else if (time.toString().length == 0) {
+                alert("Please select pickup time")
+                return false;
+            }
+            else if (name.toString().length == 0) {
+                alert("Please enter pickup name")
+                return false;
+            }
+            else if (phone.toString().length == 0) {
+                alert("Please enter a phone number")
                 return false;
             }
             else {
-                if (dt.toString() == '') {
-                    alert("Please select pickup Date");
-                    return false;
-                }
-                else {
-                    if (name.toString() == '') {
-                        alert("Please enter pickup name");
-                        return false;
-                    }
-                    else {
-                        if (phone.toString() == '') {
-                            alert("Please enter phone number");
-                            return false;
-                        }
-                        else {
-                            return true;
-                        }
-                    }
-                }
+                return true;
             }
         }
 

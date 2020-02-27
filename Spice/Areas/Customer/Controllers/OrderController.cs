@@ -19,7 +19,7 @@ namespace Spice.Areas.Customer.Controllers
     public class OrderController : Controller
     {
         private readonly IEmailSender _emailSender;
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
         private int PageSize = 2;
         public OrderController(ApplicationDbContext db, IEmailSender emailSender)
         {
@@ -125,10 +125,10 @@ namespace Spice.Areas.Customer.Controllers
         {
             OrderDetailsViewModel orderDetailsViewModel = new OrderDetailsViewModel()
             {
-                OrderHeader = await _db.OrderHeader.FirstOrDefaultAsync(m => m.Id == Id),
+                OrderHeader = await _db.OrderHeader.Include(el => el.ApplicationUser).FirstOrDefaultAsync(m => m.Id == Id),
                 OrderDetails = await _db.OrderDetails.Where(m => m.OrderId == Id).ToListAsync()
-        };
-            orderDetailsViewModel.OrderHeader.ApplicationUser = await _db.ApplicationUser.FirstOrDefaultAsync(u => u.Id == orderDetailsViewModel.OrderHeader.UserId);
+            };
+            //orderDetailsViewModel.OrderHeader.ApplicationUser = await _db.ApplicationUser.FirstOrDefaultAsync(u => u.Id == orderDetailsViewModel.OrderHeader.UserId);
 
             return PartialView("_IndividualOrderDetails", orderDetailsViewModel);
         }

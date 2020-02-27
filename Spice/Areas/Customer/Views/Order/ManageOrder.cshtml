@@ -16,7 +16,7 @@
                 <div class="col-12 pb-3 pt-3">
                     <div class="backgroundWhiteBorder10Padding">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4 col-12">
                                 Order Number : @item.OrderHeader.Id
                                 <ul class="text-info">
                                     @foreach (var details in item.OrderDetails)
@@ -25,7 +25,7 @@
                                     }
                                 </ul>
                             </div>
-                            <div class="col-4 pb-2">
+                            <div class="col-lg-4 col-12 pb-2">
                                 <div class="input-group pb-2">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Time</span>
@@ -42,7 +42,7 @@
                                 }
                                 <textarea asp-for="@item.OrderHeader.Comments" readonly class="rounded border form-control" style="width:100%;height:75px;"></textarea>
                             </div>
-                            <div class="col-3 offset-1 d-flex align-content-center">
+                            <div class="col-lg-4 col-12 d-flex align-content-center">
                                 @if (item.OrderHeader.Status.Equals(SD.StatusSubmitted))
                                 {
                                     <div class="col-12">
