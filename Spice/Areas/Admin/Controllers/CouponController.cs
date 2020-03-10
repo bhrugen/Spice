@@ -129,10 +129,7 @@ namespace Spice.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            var couponTypeName = Enum.GetName(typeof(Coupon.ECouponType), Int32.Parse(model.CouponType));
-            coupon.CouponType = couponTypeName;
-
+            
             return View(coupon);
         }
 
